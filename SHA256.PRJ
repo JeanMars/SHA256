@@ -1,6 +1,4 @@
-;>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-
-SHA256.PRG
+sha256.ttp
 ;.C [ -Y ]
 ;.L [ -Y -G -L ]
 ;.S [ -Y ]
@@ -9,8 +7,8 @@ SHA256.PRG
 
 ..\..\LIB\PCSTART.S  ; Startup code
 
-MAIN.C       ; Tester
-SHA256.C     ; C routine
-SHA256S.S    ; 68K routine
+main.c
+sha256.c
+sha256s.s
 
-PCSTDLIB.LIB ; Standard library
+pcstdlib.lib

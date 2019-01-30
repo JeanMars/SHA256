@@ -12,18 +12,18 @@
 /* Must be a multiple of 64 */
 #define BUFSIZE 1024 /* Seems to be best compromize between stack usage/speed */
 
-extern void cdecl SHA256Acc(void* buffer, uint32* hash, uint32 count) ; /* in SHA256.S */
+extern void cdecl SHA256Acc(void* buffer, uint32_t* hash, uint32_t count) ; /* in SHA256.S */
 
-static uint32 iSHA256[] = {
+static uint32_t iSHA256[] = {
                             0x6a09e667UL, 0xbb67ae85UL, 0x3c6ef372UL, 0xa54ff53aUL,
                             0x510e527fUL, 0x9b05688cUL, 0x1f83d9abUL, 0x5be0cd19UL
                           } ;
 
 #define sha256_init(sha256) memcpy( sha256, iSHA256, sizeof(iSHA256) ) ;
 
-static void sha256_end(unsigned char* buffer, size_t remaining, size_t len, uint32 sha256[8])
+static void sha256_end(unsigned char* buffer, size_t remaining, size_t len, uint32_t sha256[8])
 {
-  uint32* pmsglen  ;
+  uint32_t* pmsglen  ;
   size_t  padlen ;
   size_t  lastlen ;
 
@@ -31,7 +31,7 @@ static void sha256_end(unsigned char* buffer, size_t remaining, size_t len, uint
   lastlen         = BUFSIZE-remaining ;
   buffer[lastlen] = 0x80 ;
   padlen          = (64-9+BUFSIZE-lastlen) % 64 ;
-  pmsglen         = (uint32*) (buffer+lastlen+padlen+1) ;
+  pmsglen         = (uint32_t*) (buffer+lastlen+padlen+1) ;
   memset( buffer+lastlen+1, 0, padlen ) ;
   pmsglen[0] = len >> 29 ;
   pmsglen[1] = len << 3 ;
@@ -39,7 +39,7 @@ static void sha256_end(unsigned char* buffer, size_t remaining, size_t len, uint
   SHA256Acc( buffer, sha256, (lastlen+padlen+9)/64) ;
 }
 
-long fSHA256(char* name, uint32 sha256[8])
+long fSHA256(const char* name, uint32_t sha256[8])
 {
   FILE*         stream = fopen( name, "rb" ) ;
   unsigned char buffer[BUFSIZE] ;
@@ -70,7 +70,7 @@ long fSHA256(char* name, uint32 sha256[8])
   return 0 ;
 }
 
-void mSHA256(void* raw_data, uint32 size, uint32 sha256[8])
+void mSHA256(void* raw_data, uint32_t size, uint32_t sha256[8])
 {
   unsigned char  buffer[BUFSIZE] ;
   unsigned char* data = (unsigned char*) raw_data ;

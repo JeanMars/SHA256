@@ -2,7 +2,7 @@
 ; Port from https://github.com/Leffmann/SHA256
   .EXPORT SHA256Acc
 
-; void SHA256Acc(void* data, uint32* hash, uint32 count)
+; void SHA256Acc(void* data, uint32_t* hash, uint32_t count)
 ; Unlike other PURE C calls, this one is passing parameters to the stack (cdecl)
 SHA256Acc:
                movem.l   d2-d7/a2-a6, -(sp)

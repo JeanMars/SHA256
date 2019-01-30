@@ -12,7 +12,7 @@
 typedef struct _SHA256_TEST_VECTOR
 {
   char*  string ;
-  uint32 sha256[8] ;
+  uint32_t sha256[8] ;
 }
 SHA256_TEST_VECTOR, *PSHA256_TEST_VECTOR ;
 
@@ -27,15 +27,15 @@ static SHA256_TEST_VECTOR sha256_test_vectors[] =
 
 int main(int argc, char** argv)
 {
-  uint32  sha256[8] ;
-  uint32  size ;
+  uint32_t  sha256[8] ;
+  uint32_t  size ;
   clock_t t0, t1 ;
   long    r ;
   int     n ;
 
   if ( (argc == 1) || ((argc >= 2) && (strcmp( argv[1], "-t" ) == 0)) )
   {
-    uint32* rsha256 ;
+    uint32_t* rsha256 ;
     char*   string ;
     int     nOK = 0 ;
 
@@ -65,8 +65,8 @@ int main(int argc, char** argv)
         free( string ) ;
         if ( t1 != t0 )
         {
-          clock_t dt_ms      = (1000L*(t1-t0))/CLK_TCK ;
-          clock_t kb_per_sec = (1000L*(size >> 10))/dt_ms ;
+          long dt_ms      = (long) ((1000L*(t1-t0))/CLK_TCK) ;
+          long kb_per_sec = (long) ((1000L*(size >> 10))/dt_ms) ;
 
           printf("SHA256 on %ldKB took %ldms (%ldKB/s)\n", size>>10, dt_ms, kb_per_sec) ;
         }

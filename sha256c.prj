@@ -1,0 +1,13 @@
+sha256c.ttp
+;.C [ -Y ]
+;.L [ -Y -G -L ]
+;.S [ -Y ]
+
+=
+
+..\..\LIB\PCSTART.S ; Startup code
+
+main.c
+sh2.c
+
+pcstdlib.lib
