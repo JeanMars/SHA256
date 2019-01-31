@@ -1,4 +1,4 @@
-sha256.ttp
+bin\purec\sha2.ttp
 ;.C [ -Y ]
 ;.L [ -Y -G -L ]
 ;.S [ -Y ]

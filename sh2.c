@@ -42,6 +42,15 @@ struct sha256_ctx {
 
 static uint32_t RORu32(uint32_t x, int y) 0xe2b8;
 
+#else
+
+static uint32_t RORu32(uint32_t x, int y)
+{
+	return (x >> y) | (x << (32 - y));
+}
+#endif
+
+/*
 #elif defined(__GNUC__) && defined(__mc68000__) && 0
 
 static uint32_t RORu32(uint32_t x, int y)
@@ -53,16 +62,7 @@ static uint32_t RORu32(uint32_t x, int y)
 	: "cc");
 	return x;
 }
-
-#else
-
-static uint32_t RORu32(uint32_t x, int y)
-{
-	return (x >> y) | (x << (32 - y));
-}
-
-#endif
-
+*/
 
 #define e0(x)       (RORu32(x, 2) ^ RORu32(x,13) ^ RORu32(x,22))
 #define e1(x)       (RORu32(x, 6) ^ RORu32(x,11) ^ RORu32(x,25))

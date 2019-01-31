@@ -36,8 +36,10 @@ int main(int argc, char** argv)
   if ( (argc == 1) || ((argc >= 2) && (strcmp( argv[1], "-t" ) == 0)) )
   {
     uint32_t* rsha256 ;
-    char*   string ;
-    int     nOK = 0 ;
+    long      tdt_ms = 0 ;
+    long      tkb = 0 ;
+    char*     string ;
+    int       nOK = 0 ;
 
     printf("Test mode:\n") ;
     for ( n = 0; n < ARRAY_SIZE(sha256_test_vectors); n++ )
@@ -63,17 +65,20 @@ int main(int argc, char** argv)
         mSHA256( string, size, sha256 ) ;
         t1 = clock() ;
         free( string ) ;
-        if ( t1 != t0 )
+        if ( t1 > t0+CLK_TCK/4 ) /* Only use high stats (more relevant) */
         {
           long dt_ms      = (long) ((1000L*(t1-t0))/CLK_TCK) ;
           long kb_per_sec = (long) ((1000L*(size >> 10))/dt_ms) ;
 
+          tdt_ms += dt_ms ;
+          tkb    += (size >> 10) ;
           printf("SHA256 on %ldKB took %ldms (%ldKB/s)\n", size>>10, dt_ms, kb_per_sec) ;
         }
       }
       size <<= 1 ;
     }
     while( (t1-t0 < 2L*CLK_TCK) && string ) ; /* Stop when a SHA256 lasts for at least 2s or no memory left */
+    printf("Average SHA256 efficiency:%ldKB/s\n", (1000L*tkb)/tdt_ms) ;
   }
   else
   {

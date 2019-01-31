@@ -1,0 +1,41 @@
+purec/sha2.ttp:  PureC compilation with assembly code in 68000
+purec/sha2c.ttp: PureC compilation, 68000 'C' code (except for RORu32)
+gcc/sha2.ttp:    GCC compilation, 68000 'C' code only
+gcc/sha220.ttp:  GCC compilation, 68020 'C' code only
+
+On a Windows10x64 i5-3570K CPU @ 3.40GHz:
+All results in KB/s (so bigger is better)
+
+HAtari 2.2.2 (68030/32MHz/TOS492)
+purec/sha2.ttp:  84
+purec/sha2c.ttp: 49
+gcc/sha2.ttp:    91
+gcc/sha220.ttp:  91
+
+68000/8MHz/EmutOS
+purec/sha2.ttp:  52
+purec/sha2c.ttp: 27
+gcc/sha2.ttp:    44
+gcc/sha220.ttp:  NA
+
+Aranym-JIT 68040
+purec/sha2.ttp:   73700
+purec/sha2c.ttp:  28054
+gcc/sha2.ttp:    119156
+gcc/sha220.ttp:  118540
+
+Aranym 68040
+purec/sha2.ttp:  1442
+purec/sha2c.ttp: 1160
+gcc/sha2.ttp:    1516
+gcc/sha220.ttp:  1513
+
+MagicPC 'JIT' on
+purec/sha2.ttp:  13086
+purec/sha2c.ttp:  3467
+gcc/sha2.ttp:    12773
+gcc/sha220.ttp:  NA
+
+gcc really good at optimizing!
+PureC looks pretty bad.
+No benefit for using 68020 on SHA256.
